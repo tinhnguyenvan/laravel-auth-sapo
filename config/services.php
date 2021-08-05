@@ -30,4 +30,10 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'sapo' => [
+        'client_id' => env('SAPO_ACCESS_KEY_ID'),
+        'client_secret' => env('SAPO_SECRET_ACCESS_KEY'),
+        'redirect' => env('SAPO_REDIRECT')
+    ]
+
 ];

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\SapoAuthController;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [SapoAuthController::class, 'index'])->name('index');
+
+
+Route::get('/login', [SapoAuthController::class, 'redirectToProvider'])->name('login');
+Route::get('/login_callback', [SapoAuthController::class, 'handleProviderCallback']);
+
+Route::middleware(['auth'])->group(
+    function () {
+        Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+        Route::get('/logout', [SapoAuthController::class, 'logout']);
+    }
+);

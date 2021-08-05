@@ -23,6 +23,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->bootSapoSocialite();
+    }
+
+    private function bootSapoSocialite()
+    {
+        $socialite = $this->app->make('Laravel\Socialite\Contracts\Factory');
+        $socialite->extend('sapo', function ($app) use ($socialite) {
+            $config = $app['config']['services.sapo'];
+            return $socialite->buildProvider(SapoProvider::class, $config);
+        });
     }
 }
